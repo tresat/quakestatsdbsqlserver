@@ -1,0 +1,3 @@
+/****** Object:  Login [T30\ASPNET]    Script Date: 03/20/2009 07:47:36 ******/
+CREATE LOGIN [T30\ASPNET] FROM WINDOWS WITH DEFAULT_DATABASE=[master], DEFAULT_LANGUAGE=[us_english]
+GO

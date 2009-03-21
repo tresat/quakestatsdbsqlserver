@@ -1,0 +1,25 @@
+/****** Object:  Table [CalculatedData].[Weapon]    Script Date: 03/20/2009 07:48:14 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [CalculatedData].[Weapon](
+	[WeaponID] [int] IDENTITY(1,1) NOT NULL,
+	[WeaponLogID] [int] NOT NULL,
+	[WeaponName] [varchar](45) NULL,
+	[fkItemID] [int] NULL,
+ CONSTRAINT [PK_Weapon] PRIMARY KEY CLUSTERED 
+(
+	[WeaponID] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [CALCULATED_DATA]
+) ON [CALCULATED_DATA]
+GO
+SET ANSI_PADDING OFF
+GO
+ALTER TABLE [CalculatedData].[Weapon]  WITH CHECK ADD  CONSTRAINT [FK_Weapon_Item] FOREIGN KEY([fkItemID])
+REFERENCES [CalculatedData].[Item] ([ItemID])
+GO
+ALTER TABLE [CalculatedData].[Weapon] CHECK CONSTRAINT [FK_Weapon_Item]
+GO

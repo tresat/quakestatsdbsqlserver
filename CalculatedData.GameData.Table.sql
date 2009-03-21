@@ -1,0 +1,25 @@
+/****** Object:  Table [CalculatedData].[GameData]    Script Date: 03/20/2009 07:48:03 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+SET ANSI_PADDING ON
+GO
+CREATE TABLE [CalculatedData].[GameData](
+	[GameDataID] [int] IDENTITY(1,1) NOT NULL,
+	[fkGameID] [int] NOT NULL,
+	[DataKey] [varchar](100) NOT NULL,
+	[DataValue] [varchar](255) NULL,
+ CONSTRAINT [PK_GameData] PRIMARY KEY CLUSTERED 
+(
+	[GameDataID] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [CALCULATED_DATA]
+) ON [CALCULATED_DATA]
+GO
+SET ANSI_PADDING OFF
+GO
+ALTER TABLE [CalculatedData].[GameData]  WITH CHECK ADD  CONSTRAINT [FK_GameData_Game] FOREIGN KEY([fkGameID])
+REFERENCES [CalculatedData].[Game] ([GameID])
+GO
+ALTER TABLE [CalculatedData].[GameData] CHECK CONSTRAINT [FK_GameData_Game]
+GO
