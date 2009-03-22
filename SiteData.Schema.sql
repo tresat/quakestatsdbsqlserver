@@ -1,3 +1,4 @@
-/****** Object:  Schema [SiteData]    Script Date: 03/20/2009 07:47:38 ******/
-CREATE SCHEMA [SiteData] AUTHORIZATION [dbo]
+/****** Object:  Schema [SiteData]    Script Date: 03/22/2009 17:07:47 ******/
+IF NOT EXISTS (SELECT * FROM sys.schemas WHERE name = N'SiteData')
+EXEC sys.sp_executesql N'CREATE SCHEMA [SiteData] AUTHORIZATION [dbo]'
 GO

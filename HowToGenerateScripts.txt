@@ -1,0 +1,15 @@
+-Script all objects
+-Alter the following settings from the default:
+GENERAL
+Include If NOT EXISTS: true
+Include system constraint names: true
+Generate Script for Dependant Objects: true
+Script Database Create: true
+Script Logins: true
+Script Object-Level Permissions: true
+TABLE/VIEW OPTIONS
+Script Full-Text Indexes: true
+Script Indexes: true
+Script Triggers: true
+-File per object
+-ANSI text

@@ -1,9 +1,11 @@
-/****** Object:  StoredProcedure [Utility].[spResetDB]    Script Date: 03/20/2009 07:48:40 ******/
+/****** Object:  StoredProcedure [Utility].[spResetDB]    Script Date: 03/22/2009 17:07:52 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
--- =============================================
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[Utility].[spResetDB]') AND type in (N'P', N'PC'))
+BEGIN
+EXEC dbo.sp_executesql @statement = N'-- =============================================
 -- Author:		tom
 -- Create date: 3/15/09
 -- Description:	Empties the database.
@@ -41,7 +43,7 @@ BEGIN
 	DELETE FROM CalculatedData.ServerUppage
 
 	DELETE FROM SiteData.SystemSetting
-	WHERE SettingKey IN ('LastParsedLineNo', 'CurrentServerUppageID', 'LastSavedGameShutdownLineNo', 'LastSavedLogFileDataLineNo')
+	WHERE SettingKey IN (''LastParsedLineNo'', ''CurrentServerUppageID'', ''LastSavedGameShutdownLineNo'', ''LastSavedLogFileDataLineNo'')
 
 	-- Clear out log file tables
 	DELETE FROM LogFileData.BlueLine
@@ -62,5 +64,7 @@ BEGIN
 	DELETE FROM LogFileData.TellLine
 	DELETE FROM LogFileData.VTellLine
 	DELETE FROM LogFileData.WarmupLine
+END
+' 
 END
 GO

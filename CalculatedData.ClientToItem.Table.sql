@@ -1,8 +1,10 @@
-/****** Object:  Table [CalculatedData].[ClientToItem]    Script Date: 03/20/2009 07:47:51 ******/
+/****** Object:  Table [CalculatedData].[ClientToItem]    Script Date: 03/22/2009 17:07:48 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[CalculatedData].[ClientToItem]') AND type in (N'U'))
+BEGIN
 CREATE TABLE [CalculatedData].[ClientToItem](
 	[ClientToItemID] [int] IDENTITY(1,1) NOT NULL,
 	[fkItemID] [int] NOT NULL,
@@ -20,22 +22,27 @@ CREATE TABLE [CalculatedData].[ClientToItem](
 	[ClientToItemID] ASC
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [CALCULATED_DATA]
 ) ON [CALCULATED_DATA]
+END
 GO
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[CalculatedData].[FK_ClientToItem_Client]') AND parent_object_id = OBJECT_ID(N'[CalculatedData].[ClientToItem]'))
 ALTER TABLE [CalculatedData].[ClientToItem]  WITH CHECK ADD  CONSTRAINT [FK_ClientToItem_Client] FOREIGN KEY([fkClientID])
 REFERENCES [CalculatedData].[Client] ([ClientID])
 GO
 ALTER TABLE [CalculatedData].[ClientToItem] CHECK CONSTRAINT [FK_ClientToItem_Client]
 GO
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[CalculatedData].[FK_ClientToItem_Game]') AND parent_object_id = OBJECT_ID(N'[CalculatedData].[ClientToItem]'))
 ALTER TABLE [CalculatedData].[ClientToItem]  WITH CHECK ADD  CONSTRAINT [FK_ClientToItem_Game] FOREIGN KEY([fkGameID])
 REFERENCES [CalculatedData].[Game] ([GameID])
 GO
 ALTER TABLE [CalculatedData].[ClientToItem] CHECK CONSTRAINT [FK_ClientToItem_Game]
 GO
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[CalculatedData].[FK_ClientToItem_Item]') AND parent_object_id = OBJECT_ID(N'[CalculatedData].[ClientToItem]'))
 ALTER TABLE [CalculatedData].[ClientToItem]  WITH CHECK ADD  CONSTRAINT [FK_ClientToItem_Item] FOREIGN KEY([fkItemID])
 REFERENCES [CalculatedData].[Item] ([ItemID])
 GO
 ALTER TABLE [CalculatedData].[ClientToItem] CHECK CONSTRAINT [FK_ClientToItem_Item]
 GO
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[CalculatedData].[FK_ClientToItem_ItemLine]') AND parent_object_id = OBJECT_ID(N'[CalculatedData].[ClientToItem]'))
 ALTER TABLE [CalculatedData].[ClientToItem]  WITH CHECK ADD  CONSTRAINT [FK_ClientToItem_ItemLine] FOREIGN KEY([fkItemLineNumber])
 REFERENCES [LogFileData].[ItemLine] ([LineNumber])
 GO

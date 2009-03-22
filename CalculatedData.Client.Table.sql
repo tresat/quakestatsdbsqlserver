@@ -1,10 +1,12 @@
-/****** Object:  Table [CalculatedData].[Client]    Script Date: 03/20/2009 07:47:46 ******/
+/****** Object:  Table [CalculatedData].[Client]    Script Date: 03/22/2009 17:07:49 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
 GO
 SET ANSI_PADDING ON
 GO
+IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[CalculatedData].[Client]') AND type in (N'U'))
+BEGIN
 CREATE TABLE [CalculatedData].[Client](
 	[ClientID] [int] IDENTITY(1,1) NOT NULL,
 	[fkGameID] [int] NOT NULL,
@@ -12,6 +14,7 @@ CREATE TABLE [CalculatedData].[Client](
 	[fkClientBeginLineNumber] [int] NULL,
 	[fkClientDisconnectLineNumber] [int] NULL,
 	[fkClientUserinfoLineNumber] [int] NULL,
+	[ClientEndLineNumber] [int] NULL,
 	[ServerConnectTime] [LogFileData].[udtLogTimestamp] NOT NULL,
 	[ActualConnectTime] [datetime] NULL,
 	[ServerBeginTime] [LogFileData].[udtLogTimestamp] NULL,
@@ -34,44 +37,53 @@ CREATE TABLE [CalculatedData].[Client](
 	[ClientID] ASC
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [CALCULATED_DATA]
 ) ON [CALCULATED_DATA]
+END
 GO
 SET ANSI_PADDING OFF
 GO
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[CalculatedData].[FK_Client_Client_Next]') AND parent_object_id = OBJECT_ID(N'[CalculatedData].[Client]'))
 ALTER TABLE [CalculatedData].[Client]  WITH CHECK ADD  CONSTRAINT [FK_Client_Client_Next] FOREIGN KEY([fkNextClientID])
 REFERENCES [CalculatedData].[Client] ([ClientID])
 GO
 ALTER TABLE [CalculatedData].[Client] CHECK CONSTRAINT [FK_Client_Client_Next]
 GO
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[CalculatedData].[FK_Client_Client_Previous]') AND parent_object_id = OBJECT_ID(N'[CalculatedData].[Client]'))
 ALTER TABLE [CalculatedData].[Client]  WITH CHECK ADD  CONSTRAINT [FK_Client_Client_Previous] FOREIGN KEY([fkPreviousClientID])
 REFERENCES [CalculatedData].[Client] ([ClientID])
 GO
 ALTER TABLE [CalculatedData].[Client] CHECK CONSTRAINT [FK_Client_Client_Previous]
 GO
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[CalculatedData].[FK_Client_ClientBeginLine1]') AND parent_object_id = OBJECT_ID(N'[CalculatedData].[Client]'))
 ALTER TABLE [CalculatedData].[Client]  WITH CHECK ADD  CONSTRAINT [FK_Client_ClientBeginLine1] FOREIGN KEY([fkClientBeginLineNumber])
 REFERENCES [LogFileData].[ClientBeginLine] ([LineNumber])
 GO
 ALTER TABLE [CalculatedData].[Client] CHECK CONSTRAINT [FK_Client_ClientBeginLine1]
 GO
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[CalculatedData].[FK_Client_ClientConnectLine]') AND parent_object_id = OBJECT_ID(N'[CalculatedData].[Client]'))
 ALTER TABLE [CalculatedData].[Client]  WITH CHECK ADD  CONSTRAINT [FK_Client_ClientConnectLine] FOREIGN KEY([fkClientConnectLineNumber])
 REFERENCES [LogFileData].[ClientConnectLine] ([LineNumber])
 GO
 ALTER TABLE [CalculatedData].[Client] CHECK CONSTRAINT [FK_Client_ClientConnectLine]
 GO
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[CalculatedData].[FK_Client_ClientDisconnectLine]') AND parent_object_id = OBJECT_ID(N'[CalculatedData].[Client]'))
 ALTER TABLE [CalculatedData].[Client]  WITH CHECK ADD  CONSTRAINT [FK_Client_ClientDisconnectLine] FOREIGN KEY([fkClientDisconnectLineNumber])
 REFERENCES [LogFileData].[ClientDisconnectLine] ([LineNumber])
 GO
 ALTER TABLE [CalculatedData].[Client] CHECK CONSTRAINT [FK_Client_ClientDisconnectLine]
 GO
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[CalculatedData].[FK_Client_ClientUserinfoChangedLine]') AND parent_object_id = OBJECT_ID(N'[CalculatedData].[Client]'))
 ALTER TABLE [CalculatedData].[Client]  WITH CHECK ADD  CONSTRAINT [FK_Client_ClientUserinfoChangedLine] FOREIGN KEY([fkClientUserinfoLineNumber])
 REFERENCES [LogFileData].[ClientUserinfoChangedLine] ([LineNumber])
 GO
 ALTER TABLE [CalculatedData].[Client] CHECK CONSTRAINT [FK_Client_ClientUserinfoChangedLine]
 GO
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[CalculatedData].[FK_Client_Game]') AND parent_object_id = OBJECT_ID(N'[CalculatedData].[Client]'))
 ALTER TABLE [CalculatedData].[Client]  WITH CHECK ADD  CONSTRAINT [FK_Client_Game] FOREIGN KEY([fkGameID])
 REFERENCES [CalculatedData].[Game] ([GameID])
 GO
 ALTER TABLE [CalculatedData].[Client] CHECK CONSTRAINT [FK_Client_Game]
 GO
+IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[CalculatedData].[FK_Client_ScoreLine]') AND parent_object_id = OBJECT_ID(N'[CalculatedData].[Client]'))
 ALTER TABLE [CalculatedData].[Client]  WITH CHECK ADD  CONSTRAINT [FK_Client_ScoreLine] FOREIGN KEY([fkScoreLineNumber])
 REFERENCES [LogFileData].[ScoreLine] ([LineNumber])
 GO

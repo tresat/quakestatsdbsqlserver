@@ -1,3 +1,4 @@
-/****** Object:  Login [NT AUTHORITY\SYSTEM]    Script Date: 03/20/2009 07:47:37 ******/
+/****** Object:  Login [NT AUTHORITY\SYSTEM]    Script Date: 03/22/2009 17:07:47 ******/
+IF NOT EXISTS (SELECT * FROM sys.server_principals WHERE name = N'NT AUTHORITY\SYSTEM')
 CREATE LOGIN [NT AUTHORITY\SYSTEM] FROM WINDOWS WITH DEFAULT_DATABASE=[master], DEFAULT_LANGUAGE=[us_english]
 GO
