@@ -1,6 +1,7 @@
 -Script all objects
 -Alter the following settings from the default:
 GENERAL
+Include Descriptive Headers: False
 Include If NOT EXISTS: true
 Include system constraint names: true
 Generate Script for Dependant Objects: true
