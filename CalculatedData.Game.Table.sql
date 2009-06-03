@@ -37,6 +37,12 @@ END
 GO
 SET ANSI_PADDING OFF
 GO
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[CalculatedData].[Game]') AND name = N'_dta_index_Game_9_2114106572__K19')
+CREATE NONCLUSTERED INDEX [_dta_index_Game_9_2114106572__K19] ON [CalculatedData].[Game] 
+(
+	[IsToBeCounted] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [SITE_DATA]
+GO
 IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[CalculatedData].[FK_Game_Game_Next]') AND parent_object_id = OBJECT_ID(N'[CalculatedData].[Game]'))
 ALTER TABLE [CalculatedData].[Game]  WITH CHECK ADD  CONSTRAINT [FK_Game_Game_Next] FOREIGN KEY([fkNextGameID])
 REFERENCES [CalculatedData].[Game] ([GameID])

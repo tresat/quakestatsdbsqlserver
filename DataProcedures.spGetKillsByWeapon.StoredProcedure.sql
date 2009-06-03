@@ -18,7 +18,15 @@ BEGIN
 	-- interfering with SELECT statements.
 	SET NOCOUNT ON;
 
-	SELECT w.WeaponName, COUNT(*) AS Kills
+	DECLARE @TotalKills float
+
+	SELECT @TotalKills = CAST(COUNT(*) as float)
+	FROM CalculatedData.[Kill] k
+		INNER JOIN CalculatedData.Game g ON k.fkGameID = g.GameID
+	WHERE g.IsToBeCounted = @pProcSpecificParam0
+		AND (@pProcSpecificParam1 IS NULL OR g.fkMapID = @pProcSpecificParam1)
+
+	SELECT w.WeaponName, CAST((CAST(COUNT(*) as float) / @TotalKills) * 100 AS decimal(5, 2)) AS Kills
 	FROM CalculatedData.[Kill] k
 		INNER JOIN CalculatedData.Weapon w ON k.fkWeaponID = w.WeaponID
 		INNER JOIN CalculatedData.Game g ON k.fkGameID = g.GameID

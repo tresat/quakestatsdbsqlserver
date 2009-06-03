@@ -21,11 +21,25 @@ CREATE TABLE [CalculatedData].[Kill](
 ) ON [CALCULATED_DATA]
 END
 GO
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[CalculatedData].[Kill]') AND name = N'_dta_index_Kill_9_1637580872__K3_K1_K6')
+CREATE NONCLUSTERED INDEX [_dta_index_Kill_9_1637580872__K3_K1_K6] ON [CalculatedData].[Kill] 
+(
+	[fkGameID] ASC,
+	[KillID] ASC,
+	[fkWeaponID] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [SITE_DATA]
+GO
 IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[CalculatedData].[Kill]') AND name = N'ind_Kill_fkGameID')
 CREATE NONCLUSTERED INDEX [ind_Kill_fkGameID] ON [CalculatedData].[Kill] 
 (
 	[fkGameID] ASC
 )WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON, FILLFACTOR = 90) ON [PRIMARY]
+GO
+IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[CalculatedData].[Kill]') AND name = N'ind_Kill_fkWeaponID')
+CREATE NONCLUSTERED INDEX [ind_Kill_fkWeaponID] ON [CalculatedData].[Kill] 
+(
+	[fkWeaponID] ASC
+)WITH (PAD_INDEX  = ON, STATISTICS_NORECOMPUTE  = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON, FILLFACTOR = 90) ON [PRIMARY]
 GO
 IF NOT EXISTS (SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[CalculatedData].[Kill]') AND name = N'ind_Kill_KillerID')
 CREATE NONCLUSTERED INDEX [ind_Kill_KillerID] ON [CalculatedData].[Kill] 

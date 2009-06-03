@@ -3,7 +3,7 @@ GO
 IF NOT EXISTS (SELECT name FROM sys.databases WHERE name = N'QuakeStats')
 BEGIN
 CREATE DATABASE [QuakeStats] ON  PRIMARY 
-( NAME = N'QuakeStats', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\QuakeStats.mdf' , SIZE = 45952KB , MAXSIZE = UNLIMITED, FILEGROWTH = 1024KB ), 
+( NAME = N'QuakeStats', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\QuakeStats.mdf' , SIZE = 53120KB , MAXSIZE = UNLIMITED, FILEGROWTH = 1024KB ), 
  FILEGROUP [CALCULATED_DATA] 
 ( NAME = N'QuakeStats_CalculatedData', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\QuakeStats_CalculatedData.ndf' , SIZE = 103424KB , MAXSIZE = UNLIMITED, FILEGROWTH = 1024KB ), 
  FILEGROUP [GAMES_LOG_DATA] 
@@ -11,7 +11,7 @@ CREATE DATABASE [QuakeStats] ON  PRIMARY
  FILEGROUP [SITE_DATA] 
 ( NAME = N'QuakeStats_SiteData', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\QuakeStats_SiteData.ndf' , SIZE = 102400KB , MAXSIZE = UNLIMITED, FILEGROWTH = 1024KB )
  LOG ON 
-( NAME = N'QuakeStats_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\QuakeStats_log.ldf' , SIZE = 1024KB , MAXSIZE = 2048GB , FILEGROWTH = 10%)
+( NAME = N'QuakeStats_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL.1\MSSQL\DATA\QuakeStats_log.ldf' , SIZE = 4224KB , MAXSIZE = 2048GB , FILEGROWTH = 10%)
 END
 GO
 EXEC dbo.sp_dbcmptlevel @dbname=N'QuakeStats', @new_cmptlevel=90
